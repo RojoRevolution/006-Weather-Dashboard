@@ -8,13 +8,47 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="assets/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Weathre Dashboard</h1>
+    <header class="bg-primary">
+        <h1 class="text-center text-light py-4">Weather Dashboard</h1>
     </header>
-    <main>
+    <main class="margin-zero">
+        <div class="container-flex margin-zero">
+            <div class="row width100">
+                <div class="col-4 bg-light text-dark p-4 viewheight">
+                    <!-- Search for City Button -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search for a city"
+                            aria-label="Search for a city" aria-describedby="search-button">
+                        <button class="btn btn-primary" type="button" id="search-button">Search</button>
+                    </div>
+                    <!-- Search History Section -->
+                    <ul class="list-group">
+                        <li class="list-group-item">Austin</li>
+                        <li class="list-group-item">Atlanta</li>
+                        <li class="list-group-item">Los Angeles</li>
+                    </ul>
+                </div>
+                <div class="col-8 p-4">
+                    <div class="card" style="">
+                        <!-- City Weather Information -->
+                        <div id="city-info">
+                            <div class="card-body p5">
+                                <h2 class="card-title mb-3">City Name Goes Here</h5>
+                                    <p class="card-text">Temperature:</p>
+                                    <p class="card-text">Humidity: </p>
+                                    <p class="card-text">Wind Speed: </p>
+                                    <p class="card-text">UV Index: <span class="badge bg-danger text-light">9.49</span>
+                                    </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
     <!-- jQuery -->

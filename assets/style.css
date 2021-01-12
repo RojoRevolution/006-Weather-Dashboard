@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+    
+    margin 0;
+}
+
+
+.width100 {
+  width:100%;
+}
+
+.marginZero {
+    margin: 0;
+}
+
+.viewheight {
+    height: 100vh;
+}
+
+
+
+

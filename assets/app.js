@@ -1,3 +1,6 @@
+// View Activity 10 as a resource
+
+
 $(document).ready(function () {
 
     var APIKey = "27c1cb710c54f9c6192d48c06bd4dc82";
