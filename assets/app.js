@@ -1,35 +1,45 @@
-// View Activity 10 as a resource
+$(document).ready(function () {
 
-// ========================
-var $searchInput = $("#search-box");
-var $searchBtn = $("#search-button");
-var $history = $("#history");
+    // View Activity 10 as a resource
 
-var $city = ""
-
-// $(document).ready(function () {
-// ========================
-// API Call Section
-var APIKey = "27c1cb710c54f9c6192d48c06bd4dc82";
-// var city = ""
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + $city + "&appid=" + APIKey;
-
-function showResults() {
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
+    // ========================
+    var $searchInput = $("#search-box");
+    var $searchBtn = $("#search-button");
+    var $history = $("#history");
 
 
-        var $city = response.name;
-        var $temperature = response.main.temp + "° F"
-        var $humidity = response.main.humidity;
-        var $wind = response.wind.speed + " MPH";
-        // var = uvIndex: //UV index requires different API? https://openweathermap.org/api/uvi
+    // Need a variable that passes the $searchInput.val() from the click event
+    var $city = "";
+    // if I prefil the variable it works 
+    // var $city = "Denver"
+    console.log(typeof $city)
 
 
-        var resultsDiv = /*html*/`
+
+
+
+    // ========================
+    // API Call Section
+    var APIKey = "27c1cb710c54f9c6192d48c06bd4dc82";
+    // var city = ""
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + $city + "&appid=" + APIKey;
+
+    function showResults() {
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            // console.log(response);
+
+
+            var $city = response.name;
+            var $temperature = response.main.temp + "° F"
+            var $humidity = response.main.humidity;
+            var $wind = response.wind.speed + " MPH";
+            // var = uvIndex: //UV index requires different API? https://openweathermap.org/api/uvi
+
+
+            var resultsDiv = /*html*/`
             <div class="card">
                 <div class="card-body p5">
                     <h2 id="city-name" class="card-title mb-3">${$city}</h2>
@@ -41,25 +51,26 @@ function showResults() {
                 </div>
             </div>`
 
-        $("#city-info").append(resultsDiv)
+            $("#city-info").append(resultsDiv)
 
 
+        })
+    }
+
+
+    // ========================
+    //event listener for search button
+    $searchBtn.on("click", function (event) {
+        event.preventDefault();
+
+        $city = $searchInput.val().trim();
+        console.log(typeof $city)
+        var historyLI = /*html*/`<li id="${$searchInput.val()}"class="list-group-item">${$searchInput.val()}</li>`
+        $history.append(historyLI)
+        console.log($city)
+
+        showResults()
     })
-}
 
-// ========================
-//event listener for search button
-
-
-// })
-
-$searchBtn.on("click", function (event) {
-    event.preventDefault();
-    $city = $searchInput.val().trim();
-    var historyLI = /*html*/`<li id="${$searchInput.val()}"class="list-group-item">${$searchInput.val()}</li>`
-    $history.append(historyLI)
-
-    // showResults()
 })
-
 
