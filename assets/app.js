@@ -22,9 +22,11 @@ $(document).ready(function () {
     // API Call Section
     var APIKey = "27c1cb710c54f9c6192d48c06bd4dc82";
     // var city = ""
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + $city + "&appid=" + APIKey;
 
     function showResults() {
+
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + $city + "&appid=" + APIKey;
+
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -51,6 +53,8 @@ $(document).ready(function () {
                 </div>
             </div>`
 
+
+            $("#city-info").empty(resultsDiv)
             $("#city-info").append(resultsDiv)
 
 
@@ -62,14 +66,20 @@ $(document).ready(function () {
     //event listener for search button
     $searchBtn.on("click", function (event) {
         event.preventDefault();
-
         $city = $searchInput.val().trim();
-        console.log(typeof $city)
-        var historyLI = /*html*/`<li id="${$searchInput.val()}"class="list-group-item">${$searchInput.val()}</li>`
+        var historyLI = /*html*/`<li id="${$searchInput.val()}"class="list-group-item search-li">${$searchInput.val()}</li>`
+        $("#history-header").removeClass("hide")
         $history.append(historyLI)
-        console.log($city)
-
         showResults()
+        $searchInput.val("");
+    })
+
+    // Event clicker for history buttons to rerender info ---- Unfinished
+    $("#history").on("click", "li", function (event) {
+        event.preventDefault();
+        $city = $(this).text().trim();
+        console.log($city)
+        showResults();
     })
 
 })

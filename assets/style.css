@@ -23,6 +23,9 @@ body {
     height: 100vh;
 }
 
+.hide {
+  display:none;
+}
 
 
 
