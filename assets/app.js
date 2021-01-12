@@ -12,7 +12,7 @@ $(document).ready(function () {
     var $city = "";
     // if I prefil the variable it works 
     // var $city = "Denver"
-    console.log(typeof $city)
+    // console.log(typeof $city)
 
 
 
