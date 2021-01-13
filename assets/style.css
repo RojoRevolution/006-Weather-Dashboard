@@ -23,6 +23,10 @@ body {
     height: 100vh;
 }
 
+.paddingZero {
+  padding: 0;
+}
+
 .hide {
   display:none;
 }

@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
     <link href="assets/style.css" rel="stylesheet">
 </head>
 
@@ -18,26 +21,53 @@
     <main class="margin-zero">
         <div class="container-flex margin-zero">
             <div class="row width100">
-                <div class="col-4 bg-light text-dark p-4 viewheight">
+                <div class="col-3 bg-light text-dark p-4 viewheight">
                     <!-- Search for City Button -->
                     <div class="input-group mb-3">
                         <input id="search-box" type="text" class="form-control" placeholder="Search for a city"
                             aria-label="Search for a city" aria-describedby="search-button">
-                        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+                        <button type="submit" id="search-button" class="btn btn-primary px-4"><i
+                                class="fas fa-search"></i></button>
                     </div>
                     <!-- Search History Section -->
                     <ul id="history" class="list-group">
                         <!-- Search History List Items are rendered here -->
                     </ul>
                 </div>
-                <div class="col-8 p-4">
+                <div class="col-9 p-4">
                     <!-- City Weather Information -->
                     <div id="city-info">
                         <!-- City Information is rendered here -->
+                        <!-- <div class="card">
+                            <div class="card-body p5">
+                                <h2 id="city-name" class="card-title mb-3">${$city}</h2>
+                                <p id="city-temp" class="card-text">Temperature: ${$temperature}</p>
+                                <p id="city-humidity" class="card-text">Humidity: ${$humidity} </p>
+                                <p id="city-wind" class="card-text">Wind Speed: ${$wind}</p>
+                                <p id="city-uv" class="card-text">UV Index: <span
+                                        class="badge bg-danger text-light">9.49</span></p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- City Forcast Is Rendered Here -->
+                    <div id="city-forcast" class="my-3">
+                        <div class="container forcast">
+                            <!-- Content Starts Here -->
+                            <!-- <h3>Five Day Forcast</h3>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="container bg-primary p-3 my-3 text-light rounded-3">
+                                        <h3 class="mb-4 date">01/20/21</h3>
+                                        <p>Icon</p>
+                                        <p>Temp: 80 F</p>
+                                        <p>Humidity: 80%</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
     </main>
     <!-- jQuery -->
