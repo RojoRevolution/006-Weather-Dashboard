@@ -10,6 +10,10 @@ body {
     margin 0;
 }
 
+h3 {
+  font-size:1.5rem;
+}
+
 
 .width100 {
   width:100%;
@@ -37,6 +41,12 @@ body {
 
 .search-li:hover {
   background-color:#ececec
+ }
+
+  @media only screen and (max-width: 767px) {
+  .viewheight {
+    height: auto;
+}
  }
 
 

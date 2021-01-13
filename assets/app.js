@@ -63,7 +63,7 @@ $(document).ready(function () {
 
             // Adds H3 and the Row div before running rest of content through a loop
             var forcastContainers = /*html*/`
-            <h3>Five Day Forcast</h3>
+            <h4>Five Day Forcast</h4>
             <div class="row forcastRow"></div>`
             //Empty clears div of content before rerendering
             $(".forcast").empty(forcastContainers)
@@ -99,7 +99,7 @@ $(document).ready(function () {
             // console.log($responseHumid)
 
             var forcastContent = /*html*/`
-                <div class="col-lg-2">
+                <div class="col-lg-2 justify-content-between">
                     <div class="container bg-primary p-3 my-3 text-light rounded-3">
                         <h3 class="mb-4 date">${$date}</h3>
                         <p>Icon</p>
