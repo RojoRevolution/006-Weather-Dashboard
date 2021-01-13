@@ -31,5 +31,13 @@ body {
   display:none;
 }
 
+.search-li {
+  cursor: pointer;
+ }
+
+.search-li:hover {
+  background-color:#ececec
+ }
+
 
 
