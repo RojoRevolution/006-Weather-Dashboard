@@ -75,7 +75,6 @@ $(document).ready(function () {
                         $(".badge").addClass("extreme")
                     }
                 })
-
             }
             // Calls the Above function to get the UV index from a separate API
             oneCallAPI()
@@ -126,7 +125,7 @@ $(document).ready(function () {
             var $dailyHighRound = Math.round($dailyHigh);
             //grabs humidity
             var $humidity = responseCeption.daily[i].humidity
-
+            // HTML items for the 5 day forcast
             var forcastContent = /*html*/`
                 <div class="col-lg-2 justify-content-between">
                     <div class="container bg-primary p-3 my-3 text-light rounded-3 text-center">
@@ -154,7 +153,7 @@ $(document).ready(function () {
             return
         }
 
-        // Render todos to the DOM
+        // Render history list to the DOM
         renderHistoryOnLoad();
     }
 
@@ -178,15 +177,18 @@ $(document).ready(function () {
     //event listener for search button
     $searchBtn.on("click", function (event) {
         event.preventDefault();
-
+        //sets the input value of the search box to a variable and trims it
         $city = $searchInput.val().trim();
+        //creates list item HTML
         var $historyLI = /*html*/`<li id="$city"class="list-group-item search-li">${$city}</li>`
+        //pushes city name to history array and appends the list item
         $historyArray.push($city)
         $history.append($historyLI)
 
+        //Stores history, clears search box, renders current conditions and forcast 
         storeHistory();
-        renderConditions();
         $searchInput.val("");
+        renderConditions();
         renderForcast();
     })
 
@@ -195,7 +197,6 @@ $(document).ready(function () {
     $("#history").on("click", "li", function (event) {
         event.preventDefault();
         $city = $(this).text().trim();
-        console.log($city)
         renderConditions();
         renderForcast()
     })
