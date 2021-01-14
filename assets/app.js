@@ -1,13 +1,16 @@
 $(document).ready(function () {
     // ========================
+
     var $searchInput = $("#search-box");
     var $searchBtn = $("#search-button");
     var $history = $("#history");
-
-
-
     // Variable holds the current city that is being searched
     var $city = "";
+    // Hold Search History City names
+    var $historyArray = []
+
+    // Calls the init function which checks local storage on load and appends existing history
+    init();
 
     // ========================
     // API Key
@@ -22,8 +25,6 @@ $(document).ready(function () {
             url: weatherQueryURL,
             method: "GET"
         }).then(function (response) {
-            // console.log(response);
-
             // Vars grab the needed responses from API
             var $city = response.name;
             var $temperature = response.main.temp;
@@ -44,12 +45,8 @@ $(document).ready(function () {
                     url: oneCallURL,
                     method: "GET"
                 }).then(function (response) {
-                    // console.log(response)
                     //variable grabs UV index from One Call API
                     var responseUV = response.current.uvi;
-                    // console.log(responseUV)
-
-
                     //Renders All Current Data Content to the page
                     var resultsDiv = /*html*/`
                     <div class="card">
@@ -65,7 +62,6 @@ $(document).ready(function () {
                     // Empty clears the div before appending so content does not stack infinitely
                     $("#city-info").empty(resultsDiv)
                     $("#city-info").append(resultsDiv)
-
                     // If statement changes the BG Color of the UV Index badge based on the response
                     if (responseUV <= 2) {
                         $(".badge").addClass("bg-success")
@@ -81,15 +77,15 @@ $(document).ready(function () {
                 })
 
             }
-
+            // Calls the Above function to get the UV index from a separate API
             oneCallAPI()
-            // console.log(uvIndex)
-
+            // Begins the process of rending the Five Day Forcast
             renderForcast($latitude, $longitude)
 
         })
     }
 
+    // Calls API and renders the first header of the Five Day Forcast
     function renderForcast(lat, long) {
         var $exclude = "current,minutely,hourly,alerts"
         var oneCallURL2 = "https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + lat + "&lon=" + long + "&exclude=" + $exclude + "&appid=" + APIKey;
@@ -98,8 +94,6 @@ $(document).ready(function () {
             url: oneCallURL2,
             method: "GET"
         }).then(function (response) {
-            console.log(response)
-
             // Adds H3 and the Row div before running rest of content through a loop
             var forcastContainers = /*html*/`
             <h3>Five Day Forcast</h3>
@@ -114,7 +108,7 @@ $(document).ready(function () {
     }
 
     //=================================
-    // Renders the 5 Day forecast cards using a loop,
+    // Uses above function to render the actual Five Day Forcast through a Loop
     function renderFiveDays(responseCeption) {
         for (var i = 0; i <= 5; i++) {
             //Date conversion from Unix to final output 
@@ -146,34 +140,62 @@ $(document).ready(function () {
             // $(".forcast").empty(forcastContent)
             $(".forcastRow").append(forcastContent)
         }
+    }
 
+    // ========================
+    // grabs local storage and rerenders the history list if storage is found
+    function init() {
+        // Get stored todos from localStorage in an array format
+        var $storedHistory = JSON.parse(localStorage.getItem("History"));
+        // If todos were retrieved from localStorage, update the todos array, otherwise end the function early
+        if ($storedHistory !== null) {
+            $historyArray = $storedHistory;
+        } else {
+            return
+        }
+
+        // Render todos to the DOM
+        renderHistoryOnLoad();
+    }
+
+    // ========================
+    //Re-renders History list on the page on reload (part of init function)
+    function renderHistoryOnLoad() {
+        // for loop renders history based on the length and items in the history Array
+        for (var i = 0; i < $historyArray.length; i++) {
+            var $historyReRenderLi = /*html*/`<li id="$city"class="list-group-item search-li">${$historyArray[i]}</li>`
+            $history.append($historyReRenderLi)
+        }
+    }
+
+    // ========================
+    //Stores history
+    function storeHistory() {
+        localStorage.setItem(`History`, JSON.stringify($historyArray));
     }
 
     // ========================
     //event listener for search button
     $searchBtn.on("click", function (event) {
         event.preventDefault();
+
         $city = $searchInput.val().trim();
-        var historyLI = /*html*/`<li id="$city"class="list-group-item search-li">${$searchInput.val()}</li>`
-        $history.append(historyLI)
+        var $historyLI = /*html*/`<li id="$city"class="list-group-item search-li">${$city}</li>`
+        $historyArray.push($city)
+        $history.append($historyLI)
 
-
-        localStorage.setItem(`History`, $city);
-
-
-
-
-        renderConditions()
+        storeHistory();
+        renderConditions();
         $searchInput.val("");
-        renderForcast()
+        renderForcast();
     })
 
-    // Event listener for history buttons to rerender info 
+    // ========================
+    // Event listener for history buttons to reRender Weather Information when clicked
     $("#history").on("click", "li", function (event) {
         event.preventDefault();
         $city = $(this).text().trim();
         console.log($city)
-
         renderConditions();
         renderForcast()
     })
