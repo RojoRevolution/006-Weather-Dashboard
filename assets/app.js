@@ -119,7 +119,7 @@ $(document).ready(function () {
 
             // Grabs icon file name and appends it to complete URL
             var $icon = responseCeption.daily[i].weather[0].icon
-            var $iconURL = "http://openweathermap.org/img/wn/" + $icon + "@2x.png"
+            var $iconURL = "https://openweathermap.org/img/wn/" + $icon + "@2x.png"
             //grabs daily high and rounds it
             var $dailyHigh = responseCeption.daily[i].temp.max;
             var $dailyHighRound = Math.round($dailyHigh);
