@@ -36,7 +36,7 @@ $(document).ready(function () {
             var $longitude = response.coord.lon;
 
             //Variables for One Call API Parameters
-            var $exclude = "minutely,hourly,daily,alerts"
+            var $exclude = "minutely,hourly,alerts"
             var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + $latitude + "&lon=" + $longitude + "&exclude=" + $exclude + "&appid=" + APIKey;
 
             // Calls One Call API    
@@ -45,6 +45,7 @@ $(document).ready(function () {
                     url: oneCallURL,
                     method: "GET"
                 }).then(function (response) {
+                    console.log(response)
                     //variable grabs UV index from One Call API
                     var responseUV = response.current.uvi;
                     //Renders All Current Data Content to the page
@@ -74,35 +75,25 @@ $(document).ready(function () {
                     } else {
                         $(".badge").addClass("extreme")
                     }
+
+                    // Calls the render Forcast function to
+                    // renderForcast(response.lat, response.lon)
+
+                    var forcastContainers = /*html*/`
+                     <h3>Five Day Forcast</h3>
+                     <div class="row forcastRow"></div>`
+                    //Empty clears div of content before rerendering
+                    $(".forcast").empty(forcastContainers)
+                    $(".forcast").append(forcastContainers)
+
+                    // Calls the render function
+                    renderFiveDays(response.daily)
                 })
             }
             // Calls the Above function to get the UV index from a separate API
             oneCallAPI()
             // Begins the process of rending the Five Day Forcast
-            renderForcast($latitude, $longitude)
 
-        })
-    }
-
-    // Calls API and renders the first header of the Five Day Forcast
-    function renderForcast(lat, long) {
-        var $exclude = "current,minutely,hourly,alerts"
-        var oneCallURL2 = "https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + lat + "&lon=" + long + "&exclude=" + $exclude + "&appid=" + APIKey;
-
-        $.ajax({
-            url: oneCallURL2,
-            method: "GET"
-        }).then(function (response) {
-            // Adds H3 and the Row div before running rest of content through a loop
-            var forcastContainers = /*html*/`
-            <h3>Five Day Forcast</h3>
-            <div class="row forcastRow"></div>`
-            //Empty clears div of content before rerendering
-            $(".forcast").empty(forcastContainers)
-            $(".forcast").append(forcastContainers)
-
-            // Calls the render function
-            renderFiveDays(response)
         })
     }
 
@@ -111,20 +102,20 @@ $(document).ready(function () {
     function renderFiveDays(responseCeption) {
         for (var i = 0; i <= 5; i++) {
             //Date conversion from Unix to final output 
-            var $dailyDate = responseCeption.daily[i].dt * 1000
+            var $dailyDate = responseCeption[i].dt * 1000
             var $dateConvert = new Date($dailyDate).toLocaleDateString("en-US")
             var $dateFormatBeg = $dateConvert.substr(0, 5);
             var $dateFormatEnd = $dateConvert.substr(7);
             var $formatDate = $dateFormatBeg + $dateFormatEnd
 
             // Grabs icon file name and appends it to complete URL
-            var $icon = responseCeption.daily[i].weather[0].icon
+            var $icon = responseCeption[i].weather[0].icon
             var $iconURL = "https://openweathermap.org/img/wn/" + $icon + "@2x.png"
             //grabs daily high and rounds it
-            var $dailyHigh = responseCeption.daily[i].temp.max;
+            var $dailyHigh = responseCeption[i].temp.max;
             var $dailyHighRound = Math.round($dailyHigh);
             //grabs humidity
-            var $humidity = responseCeption.daily[i].humidity
+            var $humidity = responseCeption[i].humidity
             // HTML items for the 5 day forcast
             var forcastContent = /*html*/`
                 <div class="col-lg-2 justify-content-between">
@@ -189,7 +180,6 @@ $(document).ready(function () {
         storeHistory();
         $searchInput.val("");
         renderConditions();
-        renderForcast();
     })
 
     // ========================
@@ -198,7 +188,6 @@ $(document).ready(function () {
         event.preventDefault();
         $city = $(this).text().trim();
         renderConditions();
-        renderForcast()
     })
 
 })
