@@ -8,13 +8,12 @@ $(document).ready(function () {
     var $city = "";
     // Hold Search History City names
     var $historyArray = []
-
     // Calls the init function which checks local storage on load and appends existing history
-    init();
 
     // ========================
     // API Key
     var APIKey = "27c1cb710c54f9c6192d48c06bd4dc82";
+    init();
 
     //=================================
     //Calls the Five Day Forcast Response from API
@@ -136,11 +135,15 @@ $(document).ready(function () {
         // If todos were retrieved from localStorage, update the todos array, otherwise end the function early
         if ($storedHistory !== null) {
             $historyArray = $storedHistory;
+            $city = $historyArray[$historyArray.length - 1].trim()
+            console.log($city)
         } else {
             return
         }
+
         // Render history list to the DOM
         renderHistoryOnLoad();
+        renderConditions()
     }
 
     // ========================
