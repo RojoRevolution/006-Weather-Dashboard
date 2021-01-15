@@ -44,7 +44,6 @@ $(document).ready(function () {
                     url: oneCallURL,
                     method: "GET"
                 }).then(function (response) {
-                    console.log(response)
                     //variable grabs UV index from One Call API
                     var responseUV = response.current.uvi;
                     //Renders All Current Data Content to the page
@@ -136,7 +135,6 @@ $(document).ready(function () {
         if ($storedHistory !== null) {
             $historyArray = $storedHistory;
             $city = $historyArray[$historyArray.length - 1].trim()
-            console.log($city)
         } else {
             return
         }
