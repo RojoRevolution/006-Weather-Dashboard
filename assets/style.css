@@ -63,10 +63,32 @@ h3 {
  /***********************/
  /* Media Queries */
 
+ @media only screen and (max-width: 1180px) {
+  .column-width {
+    width:33.33%
+  }
+ }
+
+
   @media only screen and (max-width: 767px) {
   .viewheight {
     height: auto;
   }
+  .column-width {
+    width:50%;
+  }
+
+ }
+
+ @media only screen and (max-width: 600px) {
+  .column-width {
+    width:100%;
+  }
+
+  .padding-right {
+    padding-right: 0;
+  }
+
  }
 
 

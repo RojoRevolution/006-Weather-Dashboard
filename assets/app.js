@@ -76,9 +76,7 @@ $(document).ready(function () {
                         $(".badge").addClass("extreme")
                     }
 
-                    // Calls the render Forcast function to
-                    // renderForcast(response.lat, response.lon)
-
+                    // Begins the Render Forcast Section
                     var forcastContainers = /*html*/`
                      <h3>Five Day Forcast</h3>
                      <div class="row forcastRow"></div>`
@@ -86,14 +84,12 @@ $(document).ready(function () {
                     $(".forcast").empty(forcastContainers)
                     $(".forcast").append(forcastContainers)
 
-                    // Calls the render function
+                    // Calls the loop function for each day
                     renderFiveDays(response.daily)
                 })
             }
             // Calls the Above function to get the UV index from a separate API
             oneCallAPI()
-            // Begins the process of rending the Five Day Forcast
-
         })
     }
 
@@ -118,7 +114,7 @@ $(document).ready(function () {
             var $humidity = responseCeption[i].humidity
             // HTML items for the 5 day forcast
             var forcastContent = /*html*/`
-                <div class="col-lg-2 justify-content-between">
+                <div class="col-lg-2 justify-content-between column-width">
                     <div class="container bg-primary p-3 my-3 text-light rounded-3 text-center">
                         <h3 class="mb-4 date">${$formatDate}</h3>
                         <img src="${$iconURL}" alt="Forcasted Weather Icon">
@@ -143,7 +139,6 @@ $(document).ready(function () {
         } else {
             return
         }
-
         // Render history list to the DOM
         renderHistoryOnLoad();
     }
